@@ -1,58 +1,57 @@
 import React from 'react';
-import { Box, Typography, Grid, Card, CardContent, CardActionArea } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Container, Typography, Grid } from '@mui/material';
+import HomeCard from '../my-components/HomeCard';
 
 const Home = () => {
+  const cards = [
+    {
+      title: 'Welcome to My Portfolio',
+      description: 'Explore my work, journey, and skills in UX design and development.',
+      image: 'https://via.placeholder.com/300x200', // Replace with an actual image
+    },
+    {
+      title: 'Learn About Me',
+      description: 'Discover my passion for creating meaningful user experiences.',
+      image: 'https://via.placeholder.com/300x200', // Replace with an actual image
+    },
+  ];
+
   return (
-    <Box sx={{ padding: '20px', textAlign: 'center' }}>
-      {/* Intro Section */}
+    <Container
+      maxWidth="lg"
+      sx={(theme) => ({
+        paddingY: theme.spacing(4), // Vertical padding using theme spacing tokens
+      })}
+    >
+      {/* Greeting Section */}
       <Typography variant="h3" gutterBottom>
         Welcome to My Portfolio
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        I’m passionate about creating impactful designs and coding awesome projects.
+      <Typography variant="body1" sx={{ marginBottom: 4 }}>
+        I'm passionate about designing exceptional user experiences and creating
+        solutions that matter. Take a look around!
       </Typography>
 
-      {/* Highlight Section */}
-      <Grid container spacing={3} sx={{ marginTop: '30px' }}>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea component={Link} to="/about">
-              <CardContent>
-                <Typography variant="h5">About Me</Typography>
-                <Typography variant="body2">
-                  Learn more about my background and skills.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea component={Link} to="/projects">
-              <CardContent>
-                <Typography variant="h5">Projects</Typography>
-                <Typography variant="body2">
-                  Explore my portfolio of work and accomplishments.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea component={Link} to="/contact">
-              <CardContent>
-                <Typography variant="h5">Contact Me</Typography>
-                <Typography variant="body2">
-                  Get in touch to discuss opportunities or collaborations.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
+      {/* Cards Section */}
+      <Grid container spacing={2}>
+        {cards.map((card, index) => (
+          <Grid item xs={12} sm={6} key={index}>
+            <HomeCard
+              title={card.title}
+              description={card.description}
+              image={card.image}
+              onClick={() => console.log(`Clicked on ${card.title}`)} // Placeholder click handler
+              sx={(theme) => ({
+                boxShadow: theme.shadows[1],
+                '&:hover': {
+                  boxShadow: theme.shadows[3],
+                },
+              })}
+            />
+          </Grid>
+        ))}
       </Grid>
-    </Box>
+    </Container>
   );
 };
 

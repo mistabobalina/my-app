@@ -1,12 +1,17 @@
 import { createTheme } from '@mui/material/styles';
+import spacing from '../my-tokens/spacing';
+import typography from '../my-tokens/typography';
 
 const theme = createTheme({
+  spacing: spacing.base, // Base spacing = 2px
+  typography: typography.default,
+  
   palette: {
     primary: {
       main: '#1976d2', // Blue
     },
     secondary: {
-      main: '#dc004e', // Red
+      main: '#000000', // Red
     },
     background: {
       default: '#f5f5f5', // Light gray
@@ -15,12 +20,10 @@ const theme = createTheme({
       primary: '#000', // Black
       secondary: '#555', // Dark gray
     },
+
+    
   },
-  typography: {
-    fontFamily: '"Roboto", "Arial", sans-serif',
-    h1: { fontSize: '2rem', fontWeight: 600 },
-    body1: { fontSize: '1rem' },
-  },
+
 });
 
 export default theme;

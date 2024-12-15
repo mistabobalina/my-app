@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ContactModal from '../my-components/ContactModal';
+import { Button } from '@mui/material';
 
-const Contact = () => {
+const ContactPage = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
-    <div>
-      <h1>Contact Me</h1>
-      <p>Feel free to reach out!</p>
-    </div>
+    <>
+      <Button onClick={() => setModalOpen(true)} variant="contained">
+        Open Contact Modal
+      </Button>
+      <ContactModal open={isModalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 };
 
-export default Contact;
+export default ContactPage;

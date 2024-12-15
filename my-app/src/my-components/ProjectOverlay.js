@@ -2,58 +2,77 @@ import React from 'react';
 import { Box, Typography, Divider, Button } from '@mui/material';
 
 const ProjectOverlay = ({ project, onClose }) => {
-  const [showFullDescription, setShowFullDescription] = React.useState(false);
+  if (!project) return null; // Avoid rendering without a project
 
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        zIndex: 1300,
-        overflowY: 'auto',
-        padding: 4,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: theme.palette.background.default,
+        zIndex: theme.zIndex.modal,
+        overflowY: 'hidden', // Prevent scrolling unless content exceeds viewport
+        padding: theme.spacing(4),
         display: 'flex',
         flexDirection: 'column',
-        animation: 'fadeIn 0.5s ease',
-      }}
+        [theme.breakpoints.up('sm')]: {
+          padding: theme.spacing(6),
+        },
+      })}
     >
+      {/* Back Button */}
       <Button
         onClick={onClose}
-        sx={{
+        variant="contained"
+        sx={(theme) => ({
           position: 'absolute',
-          top: 16,
-          left: 16,
-          backgroundColor: 'primary.main',
-          color: 'white',
-        }}
+          top: theme.spacing(2),
+          left: theme.spacing(2),
+        })}
       >
         Back
       </Button>
-      <Box sx={{ mt: 6, textAlign: 'center' }}>
-        <Typography variant="h3">{project.name}</Typography>
-        <Typography
-          variant="body1"
-          onClick={() => setShowFullDescription(!showFullDescription)}
-          sx={{
-            cursor: 'pointer',
-            mt: 2,
-            color: 'text.secondary',
-            '&:hover': { textDecoration: 'underline' },
-          }}
-        >
-          {showFullDescription ? project.longDescription : project.shortDescription}
+
+      {/* Content Section */}
+      <Box
+        sx={(theme) => ({
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: theme.spacing(2),
+          textAlign: 'center',
+        })}
+      >
+        {/* Project Name */}
+        <Typography variant="h3" gutterBottom>
+          {project.name}
+        </Typography>
+
+        {/* Project Description */}
+        <Typography variant="body1" color="textSecondary">
+          {project.longDescription}
         </Typography>
       </Box>
-      <Divider sx={{ my: 4 }} />
-      <Box>
-        <Typography variant="h6" sx={{ mb: 2 }}>
+
+      {/* Divider */}
+      <Divider sx={(theme) => ({ my: theme.spacing(4) })} />
+
+      {/* Process Content */}
+      <Box
+        sx={(theme) => ({
+          flexShrink: 0, // Prevents shrinking of this section
+          padding: theme.spacing(2),
+        })}
+      >
+        <Typography variant="h6" gutterBottom>
           Process Content
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" color="textSecondary">
           Here’s where you can showcase your process for this project. Add images, details, or any other content you want.
         </Typography>
       </Box>
